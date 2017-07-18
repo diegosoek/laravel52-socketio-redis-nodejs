@@ -4,6 +4,15 @@ var io = require('socket.io')(server);
 var redis = require('redis');
  
 server.listen(8890);
+
+io.on('connection', function(socket) {
+    socket.on('myevent', function(data) {
+        data.socketId = socket.id;
+        io.emit('myevent', data);
+    });
+});
+
+/*
 io.on('connection', function (socket) {
  
   console.log("client connected");
@@ -22,3 +31,4 @@ console.log(data['message']);
   });
  
 });
+*/
