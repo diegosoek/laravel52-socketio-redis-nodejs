@@ -45,6 +45,18 @@
 </div>
 
 <script>
+    var socket = io();
+    $('form').submit(function(){
+        var msg = $(".msg").val();
+        socket.emit('myevent', msg);
+        $('#m').val('');
+        return false;
+    });
+    socket.on('myevent', function(msg){
+        $('#messages').append($('<li>').text(msg));
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+    /*
     var socket = io.connect('http://104.154.160.255:8890');
 
     socket.on('message', function (data) {
@@ -74,5 +86,6 @@
             alert("Please Add Message.");
         }
     })
+    */
 </script>
 @endsection
