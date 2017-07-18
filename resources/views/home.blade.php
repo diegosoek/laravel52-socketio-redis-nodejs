@@ -45,6 +45,7 @@
 </div>
 
 <script>
+    var socket = io();
 /*
     var socket = io();
     $('form').submit(function(){
@@ -79,7 +80,6 @@
         el.appendChild(text);
         messages.appendChild(el);
     }
-    */
     console.log('');
     var socket = io.connect('http://104.154.160.255:8890');
 
@@ -111,5 +111,6 @@
         }
     })
     
+    */
 </script>
 @endsection
