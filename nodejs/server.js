@@ -13,6 +13,10 @@ io.on('connection', function(socket){
   });
 });
 
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
 /*
 var app = require('express')();
 var server = require('http').Server(app);
