@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var redis = require('redis');
+var sio = io.listen(app);
 
 app.get('/', function(req, res){
   res.send('<h1>Hello world</h1>');
@@ -24,7 +25,7 @@ io.on('connection', function(socket){
                 console.log(data.group);
                 console.log(element.sala);
                 if(element.sala == data.group){
-                    io.sockets.socket(element.id).send()
+                    sio.sockets.socket(element.id).send()
                 }
             });
             //console.log("mew message add in queue "+ data.message + " channel");
