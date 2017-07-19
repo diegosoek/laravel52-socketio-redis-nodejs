@@ -27,8 +27,8 @@ io.on('connection', function(socket){
                     io.clients[element.id].send()
                 }
             });
-            console.log("mew message add in queue "+ data.message + " channel");
-            socket.emit(channel, data);
+            //console.log("mew message add in queue "+ data.message + " channel");
+            //socket.emit(channel, data);
         });
         socket.on('disconnect', function(){
             sockets.forEach(function(element, index, array){
