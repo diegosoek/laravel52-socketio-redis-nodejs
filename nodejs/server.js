@@ -7,22 +7,30 @@ app.get('/', function(req, res){
   res.send('<h1>Hello world</h1>');
 });
 
+var sockets = new Array();
+
 io.on('connection', function(socket){
-  console.log('a user connected');
-  console.log(socket.handshake.query.sala);
-  console.log(io.sockets.clients());
-  var redisClient = redis.createClient();
-  redisClient.subscribe('message');
-  redisClient.on("message", function(channel, data) {
-    data = JSON.parse(data);
-    console.log(data['message']);
-    console.log("mew message add in queue "+ data.message + " channel");
-    socket.emit(channel, data);
-  });
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-    redisClient.quit();
-  });
+    if(socket.handshake.query.sala){
+    sockets.push({
+        id: socket.id,
+        sala: socket.handshake.query.sala
+    });
+    var redisClient = redis.createClient();
+    redisClient.subscribe('message');
+    redisClient.on("message", function(channel, data) {
+        data = JSON.parse(data);
+        console.log(data['message']);
+        console.log("mew message add in queue "+ data.message + " channel");
+        socket.emit(channel, data);
+    });
+    socket.on('disconnect', function(socket){
+        console.log(socket);
+        console.log('user disconnected');
+        redisClient.quit();
+    });
+    }else{
+    next(new Error('Authentication error'));
+    }
 });
 
 http.listen(8890, function(){
