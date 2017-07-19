@@ -45,7 +45,7 @@
 </div>
 
 <script>
-    var socket = io.connect('http://104.154.160.255:8890');
+    var socket = io.connect('http://104.154.160.255:8890', {query: 'sala=sala123'});
     socket.on('message', function (data) {
         $( "#messages" ).append( "<strong>"+data.user+":</strong><p>"+data.message+"</p>" );
     });
