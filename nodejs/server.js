@@ -22,7 +22,7 @@ io.on('connection', function(socket){
         redisClient.on("message", function(channel, data) {
             data = JSON.parse(data);
             sockets.forEach(function(element, index, array){
-                if(element.sala == data.group){
+                if(element.id == socket.id && element.sala == data.group){
                     sio.sockets.sockets[element.id].send(data);
                 }
             });
