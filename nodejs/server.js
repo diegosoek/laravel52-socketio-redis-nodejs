@@ -11,6 +11,7 @@ var sockets = new Array();
 
 io.on('connection', function(socket){
     if(socket.handshake.query.sala){
+        console.log(socket.id);
         sockets.push({
             id: socket.id,
             sala: socket.handshake.query.sala
