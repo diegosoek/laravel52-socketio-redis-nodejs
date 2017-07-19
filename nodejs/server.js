@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var redis = require('redis');
-var sio = io.listen(app);
+var sio = io.listen(http);
 
 app.get('/', function(req, res){
   res.send('<h1>Hello world</h1>');
