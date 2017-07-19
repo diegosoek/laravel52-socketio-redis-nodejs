@@ -20,7 +20,11 @@ io.on('connection', function(socket){
         redisClient.subscribe('message');
         redisClient.on("message", function(channel, data) {
             data = JSON.parse(data);
-            console.log(data['message']);
+            sockets.forEach(function(element, index, array){
+                if(element.sala == data.group){
+                    io.clients[element.id].send()
+                }
+            });
             console.log("mew message add in queue "+ data.message + " channel");
             socket.emit(channel, data);
         });
