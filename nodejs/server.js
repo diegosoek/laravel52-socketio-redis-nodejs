@@ -11,25 +11,28 @@ var sockets = new Array();
 
 io.on('connection', function(socket){
     if(socket.handshake.query.sala){
-    sockets.push({
-        id: socket.id,
-        sala: socket.handshake.query.sala
-    });
-    var redisClient = redis.createClient();
-    redisClient.subscribe('message');
-    redisClient.on("message", function(channel, data) {
-        data = JSON.parse(data);
-        console.log(data['message']);
-        console.log("mew message add in queue "+ data.message + " channel");
-        socket.emit(channel, data);
-    });
-    socket.on('disconnect', function(socket){
-        console.log(socket);
-        console.log('user disconnected');
-        redisClient.quit();
-    });
+        sockets.push({
+            id: socket.id,
+            sala: socket.handshake.query.sala
+        });
+        var redisClient = redis.createClient();
+        redisClient.subscribe('message');
+        redisClient.on("message", function(channel, data) {
+            data = JSON.parse(data);
+            console.log(data['message']);
+            console.log("mew message add in queue "+ data.message + " channel");
+            socket.emit(channel, data);
+        });
+        socket.on('disconnect', function(){
+            sockets.forEach(function(element, index, array){
+                if(element.id == socket.id){
+                    sockets.splice(index, 1);
+                }
+            });
+            redisClient.quit();
+        });
     }else{
-    next(new Error('Authentication error'));
+        next(new Error('Authentication error'));
     }
 });
 
