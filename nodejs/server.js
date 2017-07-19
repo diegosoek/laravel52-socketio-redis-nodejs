@@ -21,6 +21,8 @@ io.on('connection', function(socket){
         redisClient.on("message", function(channel, data) {
             data = JSON.parse(data);
             sockets.forEach(function(element, index, array){
+                console.log(data.group);
+                console.log(element.sala);
                 if(element.sala == data.group){
                     io.clients[element.id].send()
                 }
