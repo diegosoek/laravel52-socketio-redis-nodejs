@@ -9,6 +9,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
   console.log('a user connected');
+  console.log(io.sockets.clients());
   var redisClient = redis.createClient();
   redisClient.subscribe('message');
   redisClient.on("message", function(channel, data) {
