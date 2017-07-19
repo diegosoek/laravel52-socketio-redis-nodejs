@@ -47,10 +47,11 @@
 <script>
     var socket = io.connect('http://104.154.160.255:8890');
     socket.on('message', function (data) {
+        console.log(data);
         data = jQuery.parseJSON(data);
         console.log(data.user);
         $( "#messages" ).append( "<strong>"+data.user+":</strong><p>"+data.message+"</p>" );
-      });
+    });
 
     $(".send-msg").click(function(e){
         e.preventDefault();
