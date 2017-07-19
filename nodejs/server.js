@@ -25,7 +25,7 @@ io.on('connection', function(socket){
                 console.log(data.group);
                 console.log(element.sala);
                 if(element.sala == data.group){
-                    sio.sockets.socket(element.id).send()
+                    sio.sockets[element.id].send(data);
                 }
             });
             //console.log("mew message add in queue "+ data.message + " channel");
