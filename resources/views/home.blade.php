@@ -45,7 +45,7 @@
 </div>
 
 <script>
-    var socket = io();
+    var socket = io.connect('http://104.154.160.255:8890');
 /*
     var socket = io();
     $('form').submit(function(){
