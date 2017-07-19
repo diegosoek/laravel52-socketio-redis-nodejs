@@ -12,7 +12,7 @@ var sockets = new Array();
 
 io.on('connection', function(socket){
     if(socket.handshake.query.sala){
-        console.log(socket.id);
+        console.log("Connected");
         sockets.push({
             id: socket.id,
             sala: socket.handshake.query.sala
@@ -22,15 +22,10 @@ io.on('connection', function(socket){
         redisClient.on("message", function(channel, data) {
             data = JSON.parse(data);
             sockets.forEach(function(element, index, array){
-                console.log(data.group);
-                console.log(element.sala);
                 if(element.sala == data.group){
-                    console.log(sio.sockets.sockets[element.id]);
                     sio.sockets.sockets[element.id].send(data);
                 }
             });
-            //console.log("mew message add in queue "+ data.message + " channel");
-            //socket.emit(channel, data);
         });
         socket.on('disconnect', function(){
             sockets.forEach(function(element, index, array){
