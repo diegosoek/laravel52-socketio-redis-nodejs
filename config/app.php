@@ -154,8 +154,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        Modelizer\Selenium\SeleniumServiceProvider::class
+        App\Providers\RouteServiceProvider::class
 
     ],
 
